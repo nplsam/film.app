@@ -25,7 +25,7 @@ app.get(`/films/:id`, (req, res) => {
   const idx = req.params.id-1; // -1 makes it easier for user
   const foundfilm = films[idx];
   if (!foundfilm) {
-    res.status(404).send({ message: `film with ${idx} not found` });
+    res.status(404).send({ message: `film with ${idx+1} not found` });
   } else {
     res.send(foundfilm);
   }
@@ -40,5 +40,19 @@ app.post(`/films`, (req, res) => {
   films.push(createdfilm);
   res.status(201).send(createdfilm);
 });
+
+
+// localhost: 3000/films/:id Delete Action
+app.delete(`/films/:id`, (req, res) => {
+  const idx = req.params.id-1; // -1 makes it easier for user
+  const foundfilm = films[idx];
+  console.log(foundfilm)
+  if (!foundfilm) {
+    res.status(404).send({ message: `film with ${idx+1} not found` });
+  } else {
+    const deletedItem = films.splice(idx, 1)
+    res.send(deletedItem.name);
+  }
+})
 
 module.exports = app;
