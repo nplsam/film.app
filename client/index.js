@@ -4,16 +4,23 @@ console.log(filmList);
 
 const url = `http://localhost:3000/films`;
 
+const clearList = () => {
+  while (filmList.firstChild) {
+    filmList.removeChild(filmList.lastChild)
+  }
+}
+
 const addFilm = (data) => {
   // add elements to the DOM
   const li = document.createElement(`li`)
   li.textContent = data.name
-  console.log(li)
+  // console.log(li)
   filmList.appendChild(li)
 }
 
 async function fetchFilms() {
   try {
+    clearList()
     const response = await fetch(`http://localhost:3000/films`)
     const data = await response.json()
     data.forEach(film => 
