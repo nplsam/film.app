@@ -4,67 +4,30 @@ console.log(filmList);
 
 const url = `http://localhost:3000/films`;
 
-const addfilm = (data) => {
-  // add elements tot he DOM
+const addFilm = (data) => {
+  // add elements to the DOM
   const li = document.createElement(`li`)
   li.textContent = data.name
   console.log(li)
   filmList.appendChild(li)
 }
 
-const fetchfilms = () => {
-  fetch(url)
-    .then(resp => resp.json())
-    .then(data => {
-        const films = data;
-        films.forEach(film => {
-          addfilm(film);
-        })
-    })
-    .catch(err => {
-      console.log("❌", err)
-    })
+async function fetchFilms() {
+  try {
+    const response = await fetch(`http://localhost:3000/films`)
+    const data = await response.json()
+    data.forEach(film => 
+      addFilm(film))
+  } catch (error) {
+    console.log("😞", error)
+  }
 }
 
-fetchfilms()
-
-// async function fetchfilms2() {
-//   try {
-//     const response = await fetch(`http://localhost:3000/films`)
-//     const data = await response.json()
-//     data.forEach(film => 
-//       addfilm(film))
-//   } catch (error) {
-//     console.log("😞", error)
-//   }
-// }
-
-// fetchfilms2()
+fetchFilms()
 
 const form = document.getElementById(`filmForm`);
 
-// form.addEventListener(`submit`, (event) => {
-//   event.preventDefault()
-//   console.log(event.target.film.value)
-
-//   const options = {
-//     method: `POST`,
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//       name: event.target.film.value
-//     })
-//   }
-
-//   fetch(url, options)
-//   .then(resp => resp.json())
-//   .then(data => {
-//     console.log(data)
-//   })
-// })
-
-async function createfilm(event) {
+async function createFilm(event) {
   event.preventDefault()
   console.log(event.target.film.value)
 
@@ -78,8 +41,6 @@ async function createfilm(event) {
     })
   }
 
-
-
   const response = await fetch(url, options)
   console.log(response)
   if (response.status === 201) {
@@ -88,8 +49,8 @@ async function createfilm(event) {
   }
 }
 
-form.addEventListener(`submit`, createfilm)
+form.addEventListener(`submit`, createFilm)
 
 const btn = document.querySelector(`#display`)
 console.log(btn)
-btn.addEventListener(`click`, fetchfilms)
+btn.addEventListener(`click`, fetchFilms)
