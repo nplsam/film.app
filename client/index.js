@@ -1,6 +1,8 @@
 console.log(`hello from index.js`);
 const filmList = document.querySelector(`#films`);
 console.log(filmList);
+const form = document.getElementById(`filmForm`);
+const deleterForm = document.getElementById(`deleterForm`)
 
 const url = `http://localhost:3000/films`;
 
@@ -10,23 +12,12 @@ const clearList = () => {
   }
 }
 
-const removeFilm = (event) => {
-
-  event.target.parentNode.remove();
-
-}
-
 const addFilm = (data) => {
   // add elements to the DOM
   const li = document.createElement(`li`)
   li.textContent = data.name
   // console.log(li)
   filmList.appendChild(li)
-
-  const btn = document.createElement(`button`);
-  btn.textContent = `x`;
-  btn.addEventListener(`click`, removeFilm, { once: true })
-  li.appendChild(btn)
 }
 
 async function fetchFilms() {
@@ -43,7 +34,10 @@ async function fetchFilms() {
 
 fetchFilms()
 
-const form = document.getElementById(`filmForm`);
+async function deleteFilm(event) {
+  event.preventDefault()
+  console.log(event.target.parentNode.textContent)
+}
 
 async function createFilm(event) {
   event.preventDefault()
@@ -67,7 +61,25 @@ async function createFilm(event) {
   }
 }
 
+async function deleteFilm(event) {
+  event.preventDefault()
+  const int = event.target.film.value
+
+  const options = {
+    method: `DELETE`,
+  }
+
+  const response = await fetch(url + `/${int}`, options)
+  console.log(response)
+
+  if (response.status === 200) {
+    event.target.film.value = ``
+    console.log(`Item deleted`)
+  }
+}
+
 form.addEventListener(`submit`, createFilm)
+deleterForm.addEventListener(`submit`, deleteFilm)
 
 const btn = document.querySelector(`#display`)
 console.log(btn)
