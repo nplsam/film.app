@@ -1,0 +1,42 @@
+/* layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    min-height: 50vh;
+    max-width: 400px;
+    margin: 0 auto;
+    font-size: 1.9rem;
+    position: relative;
+  }
+  
+  #fruitSection {
+    width: 90%;
+  }
+  
+  ul {
+    margin-top: 2rem;
+    list-style: none;
+    line-height: 1.6;
+    font-weight: 100;
+  }
+  
+  li::marker {
+    color: firebrick;
+  }
+
+ /* #nutritionSection {
+    background-color: lightskyblue;
+    padding: 1rem;
+    position: absolute;
+    bottom: -50px;
+  } */
+  
+  .total {
+    background-color: lightskyblue;
+    padding: 1rem;
+    position: absolute;
+    bottom: -50px;
+  }
