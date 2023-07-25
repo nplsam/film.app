@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+  background-color: #c8c8c8;
+  font-family: "Prompt", monospace;
+}
+  
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 20px;
+}
+  
+h2 {
+    margin-bottom: 3rem;
+    font-size: 18px;
+    margin-top: 25px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+  

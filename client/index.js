@@ -1,6 +1,9 @@
 console.log("hello from index.js")
 const filmList = document.querySelector(`#films`);
 console.log(filmList);
+const form = document.getElementById(`filmForm`);
+const updaterForm = document.getElementById('updaterForm')
+const deleterForm = document.getElementById(`deleterForm`)
 
 const url = `http://localhost:3000/films`;
 
@@ -31,7 +34,15 @@ async function fetchFilms() {
 
 fetchFilms()
 
-const form = document.getElementById(`filmForm`);
+async function deleteFilm(event) {
+    event.preventDefault()
+    console.log(event.target.parentNode.textContent)
+}  
+
+async function updateFilm(event) {
+    event.preventDefault()
+    console.log(event.target.parentNode.textContent)
+}
 
 async function createFilm(event) {
   event.preventDefault()
@@ -55,7 +66,48 @@ async function createFilm(event) {
   }
 }
 
+async function updateFilm(event) {
+    event.preventDefault()
+    const uFilm = event.target.film.value
+
+    const options = {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: event.target.film.value
+        })
+}
+    const response = await fetch(url + `/${uFilm}`, options)
+    console.log(response)
+    if (response.status === 200) {
+        event.target.film.name = ``
+        console.log("Item updated")
+    }
+}
+
+async function deleteFilm(event) {
+    event.preventDefault()
+    const int = event.target.film.value
+  
+    const options = {
+      method: `DELETE`,
+    }
+  
+    const response = await fetch(url + `/${int}`, options)
+    console.log(response)
+  
+    if (response.status === 200) {
+      event.target.film.value = ``
+      console.log(`Item deleted`)
+    }
+  }
+
 form.addEventListener(`submit`, createFilm)
+updaterForm.addEventListener("submit", updateFilm)
+deleterForm.addEventListener(`submit`, deleteFilm)
 
 const btn = document.querySelector(`#display`)
+console.log(btn)
 btn.addEventListener("click", fetchFilms)
