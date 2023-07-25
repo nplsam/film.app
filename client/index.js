@@ -10,12 +10,23 @@ const clearList = () => {
   }
 }
 
+const removeFilm = (event) => {
+
+  event.target.parentNode.remove();
+
+}
+
 const addFilm = (data) => {
   // add elements to the DOM
   const li = document.createElement(`li`)
   li.textContent = data.name
   // console.log(li)
   filmList.appendChild(li)
+
+  const btn = document.createElement(`button`);
+  btn.textContent = `x`;
+  btn.addEventListener(`click`, removeFilm, { once: true })
+  li.appendChild(btn)
 }
 
 async function fetchFilms() {
