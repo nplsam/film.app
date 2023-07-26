@@ -5,38 +5,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
+    <title>Film App</title>
     <script defer src="./index.js" defer></script>
-    <title>Fetch again</title>
+    <link rel="stylesheet" href="./css/style.css">
   </head>
 
   <body>
-    <h1>Welcome to the Film App</h1>
+    <div class="container">
+    <h1>Film App 🎥</h1>
     <section>
-      <h2>Add a film</h2>
+      <h2 class="add">Add a film</h2>
       <form id="filmForm" aria-label="Add a film">
-        <label for="film">Film</label>
-        <input type="text" id="film" placeholder="e.g. Inception" required>
+        <label for="film"></label>
+        <input type="text" id="film" placeholder="e.g. Mulholland Dr. " required>
         <input type="submit" value="Add a film">
       </form>
     </section>
 
     <section>
-      <h2>Display films</h2>
-      <ul id="films">
-      </ul>
+        <h2>Update a film</h2>
+        <form id="updaterForm" aria-label="Update a film">
+            <label for="filmName"></label>
+            <input type="text" id="film" placeholder="Enter film number e.g. 1" required>
+            <input type="submit" value="Update a film">
+        </form>
     </section>
-
-    <button id="display">Display films</button>
-
+    
     <section>
-      <h2>Delete a film</h2>
-      <form id="deleterForm" aria-label="Delete a film">
-        <label for="filmNumber">Film Number</label>
-        <input type="text" id="film" placeholder="e.g. 1" required>
-        <input type="submit" value="Delete a film">
-      </form>
+        <h2>Delete a film</h2>
+        <form id="deleterForm" aria-label="Delete a film">
+            <label for="filmNumber"></label>
+            <input type="text" id="film" placeholder="Enter film number e.g. 1" required>
+            <input type="submit" value="Delete a film">
+        </form>
     </section>
 
+    <section id="filmSection">
+        <h3>Display films</h3>
+        <ul id="films">
+        </ul>
+    </section>
+
+    <button id="display">Display Films</button>
+    </div>  
   </body>
 
 </html>

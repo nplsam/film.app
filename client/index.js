@@ -1,22 +1,28 @@
-console.log(`hello from index.js`);
+console.log("hello from index.js")
 const filmList = document.querySelector(`#films`);
 console.log(filmList);
 const form = document.getElementById(`filmForm`);
+const updaterForm = document.getElementById('updaterForm')
+
 const deleterForm = document.getElementById(`deleterForm`)
 
 const url = `http://localhost:3000/films`;
 
 const clearList = () => {
-  while (filmList.firstChild) {
-    filmList.removeChild(filmList.lastChild)
-  }
+  
+    while (filmList.firstChild) {
+      filmList.removeChild(filmList.lastChild)
+    }
+
 }
 
 const addFilm = (data) => {
   // add elements to the DOM
   const li = document.createElement(`li`)
   li.textContent = data.name
-  // console.log(li)
+
+  console.log(li)
+
   filmList.appendChild(li)
 }
 
@@ -25,8 +31,9 @@ async function fetchFilms() {
     clearList()
     const response = await fetch(`http://localhost:3000/films`)
     const data = await response.json()
-    data.forEach(film => 
-      addFilm(film))
+
+    data.forEach(film => addFilm(film))
+
   } catch (error) {
     console.log("😞", error)
   }
@@ -35,8 +42,15 @@ async function fetchFilms() {
 fetchFilms()
 
 async function deleteFilm(event) {
-  event.preventDefault()
-  console.log(event.target.parentNode.textContent)
+
+    event.preventDefault()
+    console.log(event.target.parentNode.textContent)
+}  
+
+async function updateFilm(event) {
+    event.preventDefault()
+    console.log(event.target.parentNode.textContent)
+
 }
 
 async function createFilm(event) {
@@ -61,26 +75,52 @@ async function createFilm(event) {
   }
 }
 
-async function deleteFilm(event) {
-  event.preventDefault()
-  const int = event.target.film.value
 
-  const options = {
-    method: `DELETE`,
-  }
+async function updateFilm(event) {
+    event.preventDefault()
+    const uFilm = event.target.film.value
 
-  const response = await fetch(url + `/${int}`, options)
-  console.log(response)
-
-  if (response.status === 200) {
-    event.target.film.value = ``
-    console.log(`Item deleted`)
-  }
+    const options = {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: event.target.film.value
+        })
+}
+    const response = await fetch(url + `/${uFilm}`, options)
+    console.log(response)
+    if (response.status === 200) {
+        event.target.film.name = ``
+        console.log("Item updated")
+    }
 }
 
+async function deleteFilm(event) {
+    event.preventDefault()
+    const int = event.target.film.value
+  
+    const options = {
+      method: `DELETE`,
+    }
+  
+    const response = await fetch(url + `/${int}`, options)
+    console.log(response)
+  
+    if (response.status === 200) {
+      event.target.film.value = ``
+      console.log(`Item deleted`)
+    }
+  }
+
 form.addEventListener(`submit`, createFilm)
+updaterForm.addEventListener("submit", updateFilm)
+
 deleterForm.addEventListener(`submit`, deleteFilm)
 
 const btn = document.querySelector(`#display`)
 console.log(btn)
-btn.addEventListener(`click`, fetchFilms)
+
+btn.addEventListener("click", fetchFilms)
+

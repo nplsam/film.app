@@ -22,14 +22,15 @@ app.get(`/films`, (req, res) => {
 
 // localhost: 3000/films Show Action
 app.get(`/films/:id`, (req, res) => {
-  const idx = req.params.id-1; // -1 makes it easier for user
-  const foundfilm = films[idx];
-  if (!foundfilm) {
-    res.status(404).send({ message: `film with ${idx+1} not found` });
+
+  const idx = req.params.id-1;
+  const foundFilm = films[idx];
+  if (!foundFilm) {
+    res.status(404).send({ message: `film with ${idx} not found` });
   } else {
-    res.send(foundfilm);
+    res.send(foundFilm);
   }
-  
+
 });
 
 // localhost: 3000/films Create Action
@@ -42,17 +43,29 @@ app.post(`/films`, (req, res) => {
 });
 
 
+// localhost: 3000/films/:id Patch Action
+app.patch('/films/:id', (req, res) => {
+    const idx = req.params.id-1;
+    const filmName = films[idx]
+    if (!filmName) {
+        res.status(404).send({ message: `film with ${idx+1} not found` });
+    } else {
+        const updatedItem = films.splice(idx, {$set: { name: filmName }}, { name: true })
+            res.send(updatedItem.name);
+    }
+})
+    
 // localhost: 3000/films/:id Delete Action
 app.delete(`/films/:id`, (req, res) => {
-  const idx = req.params.id-1; // -1 makes it easier for user
-  const foundfilm = films[idx];
-  console.log(foundfilm)
-  if (!foundfilm) {
-    res.status(404).send({ message: `film with ${idx+1} not found` });
-  } else {
-    const deletedItem = films.splice(idx, 1)
-    res.send(deletedItem.name);
-  }
-})
+    const idx = req.params.id-1;
+    const foundFilm = films[idx];
+    console.log(foundFilm)
+    if (!foundFilm) {
+      res.status(404).send({ message: `film with ${idx+1} not found` });
+    } else {
+      const deletedItem = films.splice(idx, 1)
+      res.send(deletedItem.name);
+    }
+  })
 
 module.exports = app;
