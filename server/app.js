@@ -22,6 +22,7 @@ app.get(`/films`, (req, res) => {
 
 // localhost: 3000/films Show Action
 app.get(`/films/:id`, (req, res) => {
+
   const idx = req.params.id-1;
   const foundFilm = films[idx];
   if (!foundFilm) {
@@ -29,6 +30,7 @@ app.get(`/films/:id`, (req, res) => {
   } else {
     res.send(foundFilm);
   }
+
 });
 
 // localhost: 3000/films Create Action
@@ -39,6 +41,7 @@ app.post(`/films`, (req, res) => {
   films.push(createdfilm);
   res.status(201).send(createdfilm);
 });
+
 
 // localhost: 3000/films/:id Patch Action
 app.patch('/films/:id', (req, res) => {

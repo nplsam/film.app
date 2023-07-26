@@ -3,21 +3,26 @@ const filmList = document.querySelector(`#films`);
 console.log(filmList);
 const form = document.getElementById(`filmForm`);
 const updaterForm = document.getElementById('updaterForm')
+
 const deleterForm = document.getElementById(`deleterForm`)
 
 const url = `http://localhost:3000/films`;
 
 const clearList = () => {
+  
     while (filmList.firstChild) {
       filmList.removeChild(filmList.lastChild)
     }
+
 }
 
 const addFilm = (data) => {
   // add elements to the DOM
   const li = document.createElement(`li`)
   li.textContent = data.name
+
   console.log(li)
+
   filmList.appendChild(li)
 }
 
@@ -26,7 +31,9 @@ async function fetchFilms() {
     clearList()
     const response = await fetch(`http://localhost:3000/films`)
     const data = await response.json()
+
     data.forEach(film => addFilm(film))
+
   } catch (error) {
     console.log("😞", error)
   }
@@ -35,6 +42,7 @@ async function fetchFilms() {
 fetchFilms()
 
 async function deleteFilm(event) {
+
     event.preventDefault()
     console.log(event.target.parentNode.textContent)
 }  
@@ -42,6 +50,7 @@ async function deleteFilm(event) {
 async function updateFilm(event) {
     event.preventDefault()
     console.log(event.target.parentNode.textContent)
+
 }
 
 async function createFilm(event) {
@@ -65,6 +74,7 @@ async function createFilm(event) {
     console.log(`201 true`)
   }
 }
+
 
 async function updateFilm(event) {
     event.preventDefault()
@@ -106,8 +116,11 @@ async function deleteFilm(event) {
 
 form.addEventListener(`submit`, createFilm)
 updaterForm.addEventListener("submit", updateFilm)
+
 deleterForm.addEventListener(`submit`, deleteFilm)
 
 const btn = document.querySelector(`#display`)
 console.log(btn)
+
 btn.addEventListener("click", fetchFilms)
+
